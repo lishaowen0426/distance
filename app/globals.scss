@@ -1,0 +1,254 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background-primary: 19 19 21;
+  --background-secondary: 52 52 52;
+  --background-card: 30 30 30;
+  --background-chosen: 35 35 35;
+  --action-button: 66 200 60;
+  --text-primary: 242 242 242;
+  --text-secondary: 167 167 167;
+  --text-link: 40 140 233;
+  --text-highlight: 0 0 0;
+  --icon-default: 115 115 115;
+  --icon-chosen: 66 200 60;
+  --back-icon-stroke: 255 255 255;
+  --back-icon-fill-primary: 255 255 255;
+  --back-icon-fill-secondary: 0 0 0;
+}
+
+$middle-rotate-duration: 10s;
+$outer-rotate-duration: 15s;
+$middle-circle-radius: 125px;
+$outer-circle-radius: 250px;
+
+.gradient-circle {
+  --border-color: linear-gradient(#ffbe0b, #fb5607 33%, #00d1ff 63%, #8338ec);
+  background: linear-gradient(
+        rgb(var(--background-primary)),
+        rgb(var(--background-primary))
+      )
+      padding-box,
+    var(--border-color) border-box;
+  border-radius: 50%;
+  border: 1px solid transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes spinAroundMiddle {
+  from {
+    transform: rotate(0deg) translate($middle-circle-radius);
+  }
+  to {
+    transform: rotate(360deg) translate($middle-circle-radius);
+  }
+}
+
+@keyframes spinAroundOuter {
+  from {
+    transform: rotate(0deg) translate($outer-circle-radius);
+  }
+  to {
+    transform: rotate(360deg) translate($outer-circle-radius);
+  }
+}
+#middle-circle {
+  width: calc(2 * $middle-circle-radius) !important;
+  height: calc(2 * $middle-circle-radius) !important;
+  & > img {
+    animation: spinAroundMiddle $middle-rotate-duration linear infinite;
+  }
+
+  & > img:nth-of-type(1) {
+    animation-delay: -2s;
+  }
+  & > img:nth-of-type(2) {
+    animation-delay: -4s;
+  }
+  & > img:nth-of-type(3) {
+    animation-delay: -6s;
+  }
+  & > img:nth-of-type(4) {
+    animation-delay: -8s;
+  }
+  & > img:nth-of-type(5) {
+    animation-delay: -10s;
+  }
+}
+
+#outer-circle {
+  width: calc(2 * $outer-circle-radius) !important;
+  height: calc(2 * $outer-circle-radius) !important;
+  & > img {
+    animation: spinAroundOuter $outer-rotate-duration linear infinite;
+  }
+
+  & > img:nth-of-type(1) {
+    animation-delay: -3s;
+  }
+  & > img:nth-of-type(2) {
+    animation-delay: -6s;
+  }
+  & > img:nth-of-type(3) {
+    animation-delay: -9s;
+  }
+  & > img:nth-of-type(4) {
+    animation-delay: -12s;
+  }
+  & > img:nth-of-type(5) {
+    animation-delay: -15s;
+  }
+}
+
+#middle-circle,
+#outer-circle {
+  position: relative;
+  & > img {
+    --icon-size: 48px;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+#HomepageContainer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+input::placeholder {
+  color: rgb(var(--text-secondary));
+  font-family: var(--font-cn-B);
+}
+
+.AuthFormInput {
+  color: rgb(var(--text-primary));
+  font-family: var(--font-cn-B);
+}
+
+.AuthFormMessage {
+  --default-color: rgb(var(--text-secondary) / 0.4);
+  --valid-color: rgb(66 200 60 / 0.4);
+  --invalid-color: rgb(234 51 51 / 0.4);
+  & svg,
+  & span {
+    fill: var(--default-color);
+    color: var(--default-color);
+  }
+
+  &.Invalid {
+    & svg,
+    & span {
+      fill: var(--invalid-color);
+      color: var(--invalid-color);
+    }
+  }
+  &.Valid {
+    & svg,
+    & span {
+      fill: var(--valid-color);
+      color: var(--valid-color);
+    }
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  /* Revert text color */
+  -webkit-text-fill-color: white !important;
+  color: white !important;
+  caret-color: white !important;
+
+  /* Revert background color */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.SelectContent {
+  background-color: rgb(var(--background-primary));
+  width: var(--radix-select-trigger-width);
+  max-height: var(--radix-select-content-available-height);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 1rem;
+}
+
+.SelectViewport {
+  padding: 0 8px 0 8px;
+}
+.SelectItem {
+  padding: 8px 0 8px 0;
+
+  &[data-highlighted] {
+    outline: none;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  & .SelectHoverEffect {
+    width: 20px;
+    height: 20px;
+    display: none;
+  }
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.DialogOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(255 255 255/0.1);
+  animation: 150ms cubic-bezier(0.16, 1, 0.3, 1) overlayShow;
+}
+
+@keyframes mailArrowSwing {
+  from {
+    transform: translateY(-25px);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+#MailArrow {
+  animation: 1.5s linear infinite mailArrowSwing;
+}
+
+.AuthForm {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+#AuthFormTitle {
+  & > p {
+    flex-grow: 1;
+    text-align: center;
+    z-index: 1;
+  }
+
+  & .block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: rgb(var(--action-button));
+    border-radius: 30px;
+  }
+}
