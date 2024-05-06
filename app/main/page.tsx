@@ -1,5 +1,6 @@
 import AvatarSearch from "@/components/AvatarSearch";
 import { HeadCard, HeadCarousel } from "@/components/CardCarousel";
+import { TopicCard, TopicContainer } from "@/components/TopicCard";
 export default function Page() {
   return (
     <>
@@ -10,6 +11,9 @@ export default function Page() {
         <HeadCard key="slide3">Card 3</HeadCard>
         <HeadCard key="slide4">Card 4</HeadCard>
       </HeadCarousel>
+      <TopicContainer>
+        <TopicCard city="katsushika" />
+      </TopicContainer>
     </>
   );
 }

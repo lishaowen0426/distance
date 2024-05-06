@@ -37,6 +37,9 @@ const config: Config = {
         desktop: "1280px",
       },
     },
+    borderRadius: {
+      card: "1rem",
+    },
   },
   plugins: [],
 };

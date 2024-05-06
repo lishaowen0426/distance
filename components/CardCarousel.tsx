@@ -13,7 +13,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaCarouselType } from "embla-carousel";
 
-const cardVariants = cva(["rounded-2xl"], {
+const cardVariants = cva(["rounded-card"], {
   variants: {
     color: {
       pink: "bg-[#43074B]",

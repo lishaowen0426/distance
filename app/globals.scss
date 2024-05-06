@@ -354,3 +354,20 @@ input:-webkit-autofill:active {
 }
 .HeadCarouselDotSelected {
 }
+
+.TopicCard {
+  background-clip: content-box;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position-x: 100px;
+}
+
+@mixin TopicBackground($city) {
+  .Topic#{$city} {
+    background-image: url("/images/#{$city}.png");
+  }
+}
+
+@include TopicBackground(("Katsushika"));
+@include TopicBackground(("Katsushika"));
