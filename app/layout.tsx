@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.scss";
 import localFont from "next/font/local";
 import { cn } from "@/lib/utils";
+import Script from "next/script";
 
 const cnB = localFont({
   src: "../public/fonts/OPPOSans-B.ttf",
@@ -41,6 +42,8 @@ export default function RootLayout({
         "bg-background-primary h-full"
       )}
     >
+      <head></head>
+
       <body className="h-full min-h-screen">{children}</body>
     </html>
   );

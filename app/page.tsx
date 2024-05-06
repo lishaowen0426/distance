@@ -1,8 +1,9 @@
 "use client";
 import { HomePageCircle } from "@/components/HomePageCircle";
 import ActionButton from "@/components/ActionButton";
-import AuthForm from "@/components/AuthForm";
+import AuthFormContainer from "@/components/AuthForm";
 import { useRouter } from "next/navigation";
+import Script from "next/script";
 export default function Home() {
   const router = useRouter();
   return (
@@ -10,7 +11,7 @@ export default function Home() {
       id="HomepageContainer"
       className="w-fit  mt-[50px] flex flex-col desktop:flex-row desktop:mt-[160px] desktop:gap-[250px]"
     >
-      <AuthForm className="hidden desktop:block desktop:mt-[60px]" />
+      <AuthFormContainer className="hidden desktop:block desktop:mt-[60px]" />
       <div className="flex flex-col">
         <HomePageCircle className="self-center" />
         <p className="mt-[110px] font-cnB text-lg text-text-primary w-[150px] relative left-[75px]">

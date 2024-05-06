@@ -3,10 +3,12 @@
 @tailwind utilities;
 
 :root {
+  --auth-form-width: 344px;
   --background-primary: 19 19 21;
   --background-secondary: 52 52 52;
   --background-card: 30 30 30;
   --background-chosen: 35 35 35;
+  --search-background: 35 35 35;
   --action-button: 66 200 60;
   --text-primary: 242 242 242;
   --text-secondary: 167 167 167;
@@ -214,6 +216,31 @@ input:-webkit-autofill:active {
   animation: 150ms cubic-bezier(0.16, 1, 0.3, 1) overlayShow;
 }
 
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.DialogContent {
+  background-color: rgb(var(--background-primary));
+  border-radius: 6px;
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
 @keyframes mailArrowSwing {
   from {
     transform: translateY(-25px);
@@ -227,12 +254,14 @@ input:-webkit-autofill:active {
   animation: 1.5s linear infinite mailArrowSwing;
 }
 
-.AuthForm {
-  width: fit-content;
+#AuthForm {
   display: flex;
   flex-direction: column;
+}
+.AuthFormContainer {
+  width: var(--auth-form-width);
+  height: 500px;
   margin: 0 auto;
-  padding: 0 10px;
 }
 
 #AuthFormTitle {
@@ -251,4 +280,77 @@ input:-webkit-autofill:active {
     background-color: rgb(var(--action-button));
     border-radius: 30px;
   }
+}
+
+@keyframes avatarDialogSlideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.AvatarDialogContent {
+  &:focus {
+    outline: none;
+  }
+  transform-box: border-box;
+  border-radius: 0 10px 10px 0;
+  background-color: rgb(var(--background-primary));
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 80vw;
+  max-width: 300px;
+  padding: 0 2rem;
+  animation: 0.5s linear avatarDialogSlideIn;
+  display: flex;
+  flex-direction: column;
+}
+
+.HeadCarousel {
+  overflow: hidden;
+}
+
+.HeadCarouselContainer {
+  display: flex;
+}
+
+.SlideCard {
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: 100%;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.HeadCarouselDots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+.HeadCarouselDot {
+  --text-high-contrast-rgb-value: 230, 230, 230;
+  -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  touch-action: manipulation;
+  display: inline-flex;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.HeadCarouselDotSelected {
 }

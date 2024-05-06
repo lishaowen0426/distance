@@ -21,6 +21,7 @@ const config: Config = {
           "rgb(var(--background-secondary)/ <alpha-value>)",
         "background-card": "rgb(var(--background-card)/ <alpha-value>)",
         "background-chosen": "rgb(var(--background-chosen)/ <alpha-value>)",
+        "search-background": "rgb(var(--search-background)/ <alpha-value>)",
         "action-button": "rgb(var(--action-button)/ <alpha-value>)",
         "text-primary": "rgb(var(--text-primary)/<alpha-value>)",
         "text-secondary": "rgb(var(--text-secondary)/80)",
