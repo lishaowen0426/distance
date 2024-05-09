@@ -36,12 +36,11 @@ const cardVariants = cva(["rounded-card"], {
 const HeadCard = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div"> & VariantProps<typeof cardVariants>
->(({ color, size, mode, ...props }, ref) => {
+>(({ color, size, mode, children, ...props }, ref) => {
   return (
-    <div
-      ref={ref}
-      className={cn("", cardVariants({ color, size, mode }))}
-    ></div>
+    <div ref={ref} className={cn("", cardVariants({ color, size, mode }))}>
+      {children}
+    </div>
   );
 });
 
@@ -100,18 +99,17 @@ const CarouselDotButton: React.FunctionComponent<
   );
 };
 
-const HeadCarousel = ({
+const Carousel = ({
   className,
   children,
 }: {
   className?: string;
   children?: ReactNode;
 }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, dragFree: true });
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useCarouselDotButton(emblaApi);
-  console.log(scrollSnaps);
   return (
     <div ref={emblaRef} className={cn("HeadCarousel", className)}>
       <div className={cn("HeadCarouselContainer")}>{children}</div>
@@ -119,4 +117,4 @@ const HeadCarousel = ({
   );
 };
 
-export { HeadCard, HeadCarousel };
+export { HeadCard, Carousel };

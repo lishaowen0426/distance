@@ -12,6 +12,7 @@
   --action-button: 66 200 60;
   --text-primary: 242 242 242;
   --text-secondary: 167 167 167;
+  --text-unselected: 97 97 97;
   --text-link: 40 140 233;
   --text-highlight: 0 0 0;
   --icon-default: 115 115 115;
@@ -311,19 +312,21 @@ input:-webkit-autofill:active {
 }
 
 .HeadCarousel {
+  max-width: 100%;
   overflow: hidden;
+  --spacing: 1rem
 }
 
 .HeadCarouselContainer {
   display: flex;
+  touch-action: pan-y pinch-zoom;
+  margin-left: calc(var(--spacing) * -1);
 }
 
 .SlideCard {
   flex: 0 0 auto;
   min-width: 0;
-  max-width: 100%;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin: 0 var(--spacing);
 }
 
 .HeadCarouselDots {
@@ -355,12 +358,65 @@ input:-webkit-autofill:active {
 .HeadCarouselDotSelected {
 }
 
+.TopicNavi{
+  --height: 48px;
+  display: inline-block;
+  max-height: var(--height);
+  max-width: 100%;
+  overflow-x: auto;
+  list-style-type: none;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  & li{
+    height: var(--height);
+  }
+
+  &::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+  }
+}
+
 .TopicCard {
   background-clip: content-box;
   background-size: cover;
   background-repeat: no-repeat;
   background-origin: content-box;
   background-position-x: 100px;
+}
+
+.TopicText{
+  color: white;
+
+  & div{
+    overflow: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar{
+      width: 0;
+      height: 0;
+   }
+  }
+}
+
+.TopicButton{
+  & svg{
+    stroke: white;
+    fill: white;
+    
+  }
+}
+
+.bottom-nav-button{
+  & svg {
+    height: 50%;
+    aspect-ratio: 1/1;
+    
+    
+  }
 }
 
 @mixin TopicBackground($city) {

@@ -39,12 +39,12 @@ export default function RootLayout({
       lang="zh-Hans"
       className={cn(
         `${cnB.variable} ${cnH.variable} ${cnL.variable} ${cnM.variable} ${cnR.variable}`,
-        "bg-background-primary h-full"
+        "bg-background-primary h-full w-full"
       )}
     >
       <head></head>
 
-      <body className="h-full min-h-screen">{children}</body>
+      <body className="h-full min-h-screen w-full">{children}</body>
     </html>
   );
 }

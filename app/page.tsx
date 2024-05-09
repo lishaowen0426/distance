@@ -3,13 +3,12 @@ import { HomePageCircle } from "@/components/HomePageCircle";
 import ActionButton from "@/components/ActionButton";
 import AuthFormContainer from "@/components/AuthForm";
 import { useRouter } from "next/navigation";
-import Script from "next/script";
 export default function Home() {
   const router = useRouter();
   return (
     <div
       id="HomepageContainer"
-      className="w-fit  mt-[50px] flex flex-col desktop:flex-row desktop:mt-[160px] desktop:gap-[250px]"
+      className="w-full overflow-x-hidden  mt-[50px] flex flex-col desktop:flex-row desktop:mt-[160px] desktop:gap-[250px] desktop:w-fit desktop:justify-center"
     >
       <AuthFormContainer className="hidden desktop:block desktop:mt-[60px]" />
       <div className="flex flex-col">
