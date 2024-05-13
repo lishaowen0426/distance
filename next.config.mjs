@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (config) => {
+  reactStrictMode: true,
+  ebpack: (config) => {
     return config;
   },
 };

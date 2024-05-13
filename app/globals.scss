@@ -20,6 +20,7 @@
   --back-icon-stroke: 255 255 255;
   --back-icon-fill-primary: 255 255 255;
   --back-icon-fill-secondary: 0 0 0;
+  --topic-skeleton:  33 34 39;
 }
 
 $middle-rotate-duration: 10s;
@@ -416,6 +417,11 @@ input:-webkit-autofill:active {
     aspect-ratio: 1/1;
     
     
+  }
+}
+.bottom-nav-button.selected{
+  & svg{
+    stroke: rgb(var(--icon-chosen));
   }
 }
 

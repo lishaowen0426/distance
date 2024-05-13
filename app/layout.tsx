@@ -41,6 +41,7 @@ export default function RootLayout({
         `${cnB.variable} ${cnH.variable} ${cnL.variable} ${cnM.variable} ${cnR.variable}`,
         "bg-background-primary h-full w-full"
       )}
+      suppressHydrationWarning
     >
       <head></head>
 

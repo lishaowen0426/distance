@@ -11,8 +11,11 @@ import * as Avatar from "@radix-ui/react-avatar";
 import { EllipsisVertical } from "lucide-react";
 import { useLayoutEffect } from "react";
 
+const TOPIC_CARD_HEIGHT: number = 120;
+const TOPIC_GAP: number = 10;
+
 const topicVariants = cva(
-  "TopicCard bg-background-card w-full max-w-[500px] rounded-card h-[120px] flex justify-between",
+  `TopicCard bg-background-card w-full max-w-[500px] rounded-card h-[${TOPIC_CARD_HEIGHT}px] flex justify-between`,
   {
     variants: {
       city: {
@@ -47,7 +50,7 @@ const TopicHeader = forwardRef<
       >
         <div className="h-fit">
           <Avatar.Image
-            src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
+            src={avatarURL}
             alt="Colm Tuite"
             style={{
               width: "100%",
@@ -56,12 +59,18 @@ const TopicHeader = forwardRef<
               objectFit: "cover",
             }}
           />
-          <Avatar.Fallback>Y</Avatar.Fallback>
+          <Avatar.Fallback>
+            <div className="w-[36px] h-[36px] rounded-full bg-topic-skeleton"></div>
+          </Avatar.Fallback>
         </div>
       </Avatar.Root>
-      <button className="TopicButton flex-1 flex flex-col justify-center  h-[40px]">
-        <EllipsisVertical />
-      </button>
+      {avatarURL ? (
+        <button className="TopicButton flex-1 flex flex-col justify-center  h-[40px]">
+          <EllipsisVertical />
+        </button>
+      ) : (
+        <div className="h-[40px] w-[15px] rounded-full bg-topic-skeleton"></div>
+      )}
     </div>
   );
 });
@@ -90,25 +99,44 @@ const TopicCard = forwardRef<
             <div suppressHydrationWarning>{postedAt}</div>
           </div>
         </div>
-        <TopicHeader className="w-[20%] max-w-[60px] mt-[10px] mr-[10px]" />
+        <TopicHeader
+          className="w-[20%] max-w-[60px] mt-[10px] mr-[10px]"
+          avatarURL="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
+        />
       </div>
     );
   }
 );
 
-const TopicContainer: React.FunctionComponent<
-  ComponentPropsWithoutRef<"div"> & { restHeight: number }
-> = ({ children, className, restHeight, ...props }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  useLayoutEffect(() => {
-    ref.current!.style.height = `calc(100vh - ${restHeight}px)`;
-  }, [restHeight]);
+const TopicCardSkeleton = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div">
+>((props, ref) => {
   return (
-    <div ref={ref} className={cn("w-full overflow-auto", className)}>
+    <div className={topicVariants()} ref={ref}>
+      <div className="TopicText w-[70%] flex flex-col justify-between p-[20px] pb-[10px]">
+        <div className="w-full h-[28px] bg-topic-skeleton rounded-lg"></div>
+        <div className="w-full h-[20px] bg-topic-skeleton rounded-lg"></div>
+        <div className="w-[50%] h-[12px] bg-topic-skeleton rounded-lg"></div>
+      </div>
+      <TopicHeader className="w-[20%] max-w-[60px] mt-[10px] mr-[10px]" />
+    </div>
+  );
+});
+
+const TopicContainer = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div">
+>(({ children, className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(`w-full space-y-[${TOPIC_GAP}px] overflow-auto`, className)}
+    >
       {children}
     </div>
   );
-};
+});
 
 const TopicNaviItem = forwardRef<HTMLLIElement, ComponentPropsWithoutRef<"li">>(
   ({ children, className, onClick, ...props }, ref) => {
@@ -138,5 +166,8 @@ export {
   TopicContainer,
   TopicNaviItem,
   TopicNavi,
+  TopicCardSkeleton,
+  TOPIC_CARD_HEIGHT,
+  TOPIC_GAP,
   type TopicContent,
 };

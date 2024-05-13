@@ -36,6 +36,7 @@ const config: Config = {
         "back-icon-stroke": "rgb(var(--back-icon-stroke)/<alpha-value>)",
         "back-icon-fill-primary": "rgb(var(--back-icon-fill-primary)/3)",
         "back-icon-fill-secondary": "rgb(var(--back-icon-fill-secondary))",
+        "topic-skeleton": "rgb(var(--topic-skeleton)/ <alpha-value>)",
       },
       screens: {
         desktop: "1280px",
