@@ -15,7 +15,7 @@ const TOPIC_CARD_HEIGHT: number = 120;
 const TOPIC_GAP: number = 10;
 
 const topicVariants = cva(
-  `TopicCard bg-background-card w-full max-w-[500px] rounded-card h-[${TOPIC_CARD_HEIGHT}px] flex justify-between`,
+  `TopicCard bg-background-card w-full max-w-[500px] rounded-card h-[120px] flex justify-between`,
   {
     variants: {
       city: {

@@ -1,8 +1,9 @@
 import { ComponentPropsWithoutRef, forwardRef } from "react";
-const GroupIcon = forwardRef<HTMLOrSVGElement, ComponentPropsWithoutRef<"svg">>(
+const GroupIcon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
   (props, ref) => {
     return (
       <svg
+        ref={ref}
         width="36"
         height="36"
         viewBox="0 0 36 36"
@@ -51,10 +52,11 @@ const GroupIcon = forwardRef<HTMLOrSVGElement, ComponentPropsWithoutRef<"svg">>(
   }
 );
 
-const HeartIcon = forwardRef<HTMLOrSVGElement, ComponentPropsWithoutRef<"svg">>(
+const HeartIcon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
   (props, ref) => {
     return (
       <svg
+        ref={ref}
         width="36"
         height="36"
         viewBox="0 0 36 36"
@@ -73,10 +75,11 @@ const HeartIcon = forwardRef<HTMLOrSVGElement, ComponentPropsWithoutRef<"svg">>(
   }
 );
 
-const HomeIcon = forwardRef<HTMLOrSVGElement, ComponentPropsWithoutRef<"svg">>(
+const HomeIcon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
   (props, ref) => {
     return (
       <svg
+        ref={ref}
         width="36"
         height="36"
         viewBox="0 0 36 36"
@@ -95,57 +98,92 @@ const HomeIcon = forwardRef<HTMLOrSVGElement, ComponentPropsWithoutRef<"svg">>(
   }
 );
 
-const SliderIcon = forwardRef<
-  HTMLOrSVGElement,
-  ComponentPropsWithoutRef<"svg">
->((props, ref) => {
-  return (
-    <svg
-      width="36"
-      height="36"
-      viewBox="0 0 36 36"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M13.7228 6.81429C11.8111 6.81429 10.2613 8.3685 10.2613 10.2857C10.2613 12.2029 11.8111 13.7571 13.7228 13.7571C15.6346 13.7571 17.1844 12.2029 17.1844 10.2857C17.1844 8.3685 15.6346 6.81429 13.7228 6.81429ZM7.95361 10.2857C7.95361 7.09035 10.5366 4.5 13.7228 4.5C16.9091 4.5 19.4921 7.09035 19.4921 10.2857C19.4921 13.4811 16.9091 16.0714 13.7228 16.0714C10.5366 16.0714 7.95361 13.4811 7.95361 10.2857Z"
-        fill="#737373"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M3.33826 10.2859C3.33826 9.64681 3.85485 9.12874 4.4921 9.12874H9.10749C9.74474 9.12874 10.2613 9.64664 10.2613 10.2857C10.2613 10.9248 9.74474 11.443 9.10749 11.443H4.4921C3.85485 11.443 3.33826 10.925 3.33826 10.2859Z"
-        fill="#737373"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M17.1844 10.2857C17.1844 9.64664 17.7009 9.12891 18.3382 9.12891L32.1843 9.1289C32.8216 9.1289 33.3382 9.64698 33.3382 10.286C33.3382 10.9251 32.8216 11.4432 32.1843 11.4432L18.3382 11.4432C17.7009 11.4432 17.1844 10.9248 17.1844 10.2857Z"
-        fill="#737373"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M22.9536 22.2428C24.8654 22.2428 26.4151 23.797 26.4151 25.7142C26.4151 27.6314 24.8654 29.1856 22.9536 29.1856C21.0418 29.1856 19.4921 27.6314 19.4921 25.7142C19.4921 23.797 21.0418 22.2428 22.9536 22.2428ZM28.7228 25.7142C28.7228 22.5188 26.1399 19.9285 22.9536 19.9285C19.7673 19.9285 17.1844 22.5188 17.1844 25.7142C17.1844 28.9095 19.7673 31.4999 22.9536 31.4999C26.1399 31.4999 28.7228 28.9095 28.7228 25.7142Z"
-        fill="#737373"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M33.3382 25.7144C33.3382 25.0753 32.8216 24.5573 32.1844 24.5573H27.569C26.9317 24.5573 26.4151 25.0751 26.4151 25.7142C26.4151 26.3533 26.9317 26.8715 27.569 26.8715H32.1844C32.8216 26.8715 33.3382 26.3535 33.3382 25.7144Z"
-        fill="#737373"
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M19.4921 25.7142C19.4921 25.0751 18.9755 24.5574 18.3383 24.5574L4.49214 24.5574C3.85489 24.5574 3.33829 25.0754 3.33829 25.7145C3.33829 26.3536 3.85489 26.8717 4.49214 26.8717H18.3383C18.9755 26.8717 19.4921 26.3533 19.4921 25.7142Z"
-        fill="#737373"
-      />
-    </svg>
-  );
-});
+const SliderIcon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
+  (props, ref) => {
+    return (
+      <svg
+        ref={ref}
+        width="36"
+        height="36"
+        viewBox="0 0 36 36"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M13.7228 6.81429C11.8111 6.81429 10.2613 8.3685 10.2613 10.2857C10.2613 12.2029 11.8111 13.7571 13.7228 13.7571C15.6346 13.7571 17.1844 12.2029 17.1844 10.2857C17.1844 8.3685 15.6346 6.81429 13.7228 6.81429ZM7.95361 10.2857C7.95361 7.09035 10.5366 4.5 13.7228 4.5C16.9091 4.5 19.4921 7.09035 19.4921 10.2857C19.4921 13.4811 16.9091 16.0714 13.7228 16.0714C10.5366 16.0714 7.95361 13.4811 7.95361 10.2857Z"
+          fill="#737373"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M3.33826 10.2859C3.33826 9.64681 3.85485 9.12874 4.4921 9.12874H9.10749C9.74474 9.12874 10.2613 9.64664 10.2613 10.2857C10.2613 10.9248 9.74474 11.443 9.10749 11.443H4.4921C3.85485 11.443 3.33826 10.925 3.33826 10.2859Z"
+          fill="#737373"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M17.1844 10.2857C17.1844 9.64664 17.7009 9.12891 18.3382 9.12891L32.1843 9.1289C32.8216 9.1289 33.3382 9.64698 33.3382 10.286C33.3382 10.9251 32.8216 11.4432 32.1843 11.4432L18.3382 11.4432C17.7009 11.4432 17.1844 10.9248 17.1844 10.2857Z"
+          fill="#737373"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M22.9536 22.2428C24.8654 22.2428 26.4151 23.797 26.4151 25.7142C26.4151 27.6314 24.8654 29.1856 22.9536 29.1856C21.0418 29.1856 19.4921 27.6314 19.4921 25.7142C19.4921 23.797 21.0418 22.2428 22.9536 22.2428ZM28.7228 25.7142C28.7228 22.5188 26.1399 19.9285 22.9536 19.9285C19.7673 19.9285 17.1844 22.5188 17.1844 25.7142C17.1844 28.9095 19.7673 31.4999 22.9536 31.4999C26.1399 31.4999 28.7228 28.9095 28.7228 25.7142Z"
+          fill="#737373"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M33.3382 25.7144C33.3382 25.0753 32.8216 24.5573 32.1844 24.5573H27.569C26.9317 24.5573 26.4151 25.0751 26.4151 25.7142C26.4151 26.3533 26.9317 26.8715 27.569 26.8715H32.1844C32.8216 26.8715 33.3382 26.3535 33.3382 25.7144Z"
+          fill="#737373"
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M19.4921 25.7142C19.4921 25.0751 18.9755 24.5574 18.3383 24.5574L4.49214 24.5574C3.85489 24.5574 3.33829 25.0754 3.33829 25.7145C3.33829 26.3536 3.85489 26.8717 4.49214 26.8717H18.3383C18.9755 26.8717 19.4921 26.3533 19.4921 25.7142Z"
+          fill="#737373"
+        />
+      </svg>
+    );
+  }
+);
 
-export { GroupIcon, HeartIcon, HomeIcon, SliderIcon };
+const LoadingIcon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
+  ({ fill, ...props }, ref) => {
+    return (
+      <svg
+        ref={ref}
+        version="1.1"
+        id="L9"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 100 100"
+        enableBackground="new 0 0 0 0"
+        xmlSpace="preserve"
+        {...props}
+      >
+        <path
+          fill={fill}
+          d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"
+        >
+          <animateTransform
+            attributeName="transform"
+            attributeType="XML"
+            type="rotate"
+            dur="1s"
+            from="0 50 50"
+            to="360 50 50"
+            repeatCount="indefinite"
+          />
+        </path>
+      </svg>
+    );
+  }
+);
+
+export { GroupIcon, HeartIcon, HomeIcon, SliderIcon, LoadingIcon };

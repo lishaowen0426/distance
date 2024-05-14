@@ -1,5 +1,7 @@
 import { LoremIpsum } from "lorem-ipsum";
 import { getRandomInt } from "@/lib/utils";
+import { type TopicContent } from "@/components/TopicCard";
+
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
     max: 3,
@@ -22,16 +24,21 @@ const LOCATIONS = [
   "新宿区",
   "文京区",
 ];
+
+export interface TopicResponse {
+  topics: TopicContent[];
+  hasMore: boolean;
+}
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const from = searchParams.get("from")!;
   const count = parseInt(searchParams.get("count") || "");
-  console.log(from, count);
 
   await setTimeout(() => {}, 1000);
 
-  return Response.json(
-    Array(count)
+  return Response.json({
+    topics: Array(count)
       .fill(1)
       .map(() => {
         return {
@@ -42,6 +49,7 @@ export async function GET(request: Request) {
           online: 135,
           member: 458,
         };
-      })
-  );
+      }),
+    hasMore: true,
+  } satisfies TopicResponse);
 }

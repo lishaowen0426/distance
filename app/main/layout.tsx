@@ -9,7 +9,7 @@ export default function Layout({
     <NaviContext.Provider value={{ selected, setSelected }}>
       <div className="flex flex-col items-center w-full px-[1rem] ">
         {children}
-        <BottomNavi />
+        {false && <BottomNavi />}
       </div>
     </NaviContext.Provider>
   );
