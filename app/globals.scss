@@ -425,6 +425,11 @@ input:-webkit-autofill:active {
   }
 }
 
+.SearchInput::placeholder {
+  padding-left: 30px;
+
+}
+
 @mixin TopicBackground($city) {
   .Topic#{$city} {
     background-image: url("/images/#{$city}.png");
@@ -433,3 +438,6 @@ input:-webkit-autofill:active {
 
 @include TopicBackground(("Katsushika"));
 @include TopicBackground(("Katsushika"));
+
+
+

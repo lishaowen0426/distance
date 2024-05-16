@@ -14,8 +14,10 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 import { GroupIcon, HomeIcon, SliderIcon, HeartIcon } from "@/components/Icons";
+import { BackwardButton, MoreButton } from "./ActionButton";
 
 type NaviContextProps = {
+  height: number | null;
   selected: number;
   setSelected: Dispatch<SetStateAction<number>>;
 };
@@ -89,4 +91,31 @@ const BottomNavi = forwardRef<
   );
 });
 
-export { BottomNavi };
+const HeaderNavi = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<ComponentPropsWithoutRef<"div">>
+>(({ children, ...props }, ref) => {
+  return (
+    <div
+      {...props}
+      className="w-full h-[50px] flex flex-row items-center justify-between "
+    >
+      <BackwardButton />
+      {children}
+      <MoreButton />
+    </div>
+  );
+});
+
+const HeaderTitle = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<ComponentPropsWithoutRef<"div">>
+>(({ children, ...props }, ref) => {
+  return (
+    <div {...props} className="text-text-primary font-cnB text-2xl">
+      {children}
+    </div>
+  );
+});
+
+export { BottomNavi, HeaderNavi, HeaderTitle };

@@ -45,7 +45,9 @@ export default function RootLayout({
     >
       <head></head>
 
-      <body className="h-full min-h-screen w-full">{children}</body>
+      <body className="h-full min-h-screen w-full before:block before:w-full before:h-[20px]">
+        {children}
+      </body>
     </html>
   );
 }

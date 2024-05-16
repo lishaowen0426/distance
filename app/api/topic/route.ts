@@ -30,26 +30,33 @@ export interface TopicResponse {
   hasMore: boolean;
 }
 
+let counter = 0;
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const from = searchParams.get("from")!;
   const count = parseInt(searchParams.get("count") || "");
 
-  await setTimeout(() => {}, 1000);
-
-  return Response.json({
-    topics: Array(count)
-      .fill(1)
-      .map(() => {
-        return {
-          title: lorem.generateSentences(1),
-          desciption: lorem.generateParagraphs(1),
-          location: LOCATIONS[getRandomInt(0, 10)],
-          postedAt: "一小时前",
-          online: 135,
-          member: 458,
-        };
-      }),
-    hasMore: true,
-  } satisfies TopicResponse);
+  return new Promise((resolveFn) => {
+    setTimeout(() => {
+      resolveFn(
+        Response.json({
+          topics: Array(count)
+            .fill(1)
+            .map(() => {
+              return {
+                title: lorem.generateSentences(1),
+                desciption: lorem.generateParagraphs(1),
+                location: LOCATIONS[getRandomInt(0, 10)],
+                postedAt: "一小时前",
+                online: 135,
+                city: "katsushika",
+                member: 458,
+              };
+            }),
+          hasMore: true,
+        } satisfies TopicResponse)
+      );
+    }, 500);
+  });
 }

@@ -5,17 +5,23 @@ import * as Avatar from "@radix-ui/react-avatar";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useLayoutEffect, useRef, useState } from "react";
 import { useMeasure } from "@uidotdev/usehooks";
+import { cn } from "@/lib/utils";
 
 const Search = React.forwardRef<
   HTMLInputElement,
   React.ComponentPropsWithoutRef<"input">
->((props, ref) => {
+>(({ className, ...props }, ref) => {
   return (
     <input
       ref={ref}
       type="text"
-      className="pl-[10px] w-full  bg-search-background rounded-r-[20px]  focus-visible:outline-none text-text-primary font-cnB "
+      className={cn(
+        "w-full  bg-search-background rounded-r-[20px]  focus-visible:outline-none text-text-primary font-cnB",
+        "SearchInput",
+        className
+      )}
       placeholder="搜索"
+      {...props}
     ></input>
   );
 });

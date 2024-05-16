@@ -6,8 +6,11 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  useCallback,
   forwardRef,
   ComponentPropsWithoutRef,
+  useContext,
+  RefObject,
 } from "react";
 import { LoadingIcon } from "./Icons";
 import { type TopicResponse } from "@/app/api/topic/route";
@@ -29,6 +32,7 @@ import {
   TopicCardSkeleton,
   type TopicContent,
 } from "@/components/TopicCard";
+import { NaviContext } from "./Navi";
 
 const PREFETCH_RATIO = 0.3;
 
@@ -48,18 +52,30 @@ const NAVI = [
 
 const topics: TopicContent[] = Array(100).fill(1);
 
-const NoMoreSpan = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<"div">>(
-  (props, ref) => {
-    return (
-      <div
-        ref={ref}
-        className="w-fit mx-auto font-cnB underline underline-offset-[6px] text-text-secondary/50"
+const NoMoreSpan = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div"> & { scrollTo: RefObject<HTMLDivElement> }
+>(({ scrollTo, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className="w-fit mx-auto font-cnB underline underline-offset-[6px] text-text-secondary/50 flex items-center mb-[10px] h-[40px]"
+      {...props}
+    >
+      没有更多话题,
+      <button
+        className="text-text-link"
+        onClick={(ev) => {
+          console.log(scrollTo.current);
+          ev.stopPropagation();
+          scrollTo.current?.scroll(0, 0);
+        }}
       >
-        没有更多话题, <span className="text-text-link/50">回到顶部</span>
-      </div>
-    );
-  }
-);
+        回到顶部
+      </button>
+    </div>
+  );
+});
 
 const FetchTopicFailed = forwardRef<
   HTMLDivElement,
@@ -80,8 +96,8 @@ const FetchTopicFailed = forwardRef<
 });
 
 export default function TopicPage() {
-  const [upperRef, { height: upperHeight }] = useMeasure();
-  const [lowerRef, { height: lowerHeight }] = useMeasure();
+  const [upperRef, { height: upperHeight }] = useMeasure(); // there is setState inside the returned ref callback
+  const { height: lowerHeight } = useContext(NaviContext);
   const ref = useRef<HTMLDivElement>(null);
   const [triggerRef, trigger] = useIntersectionObserver({
     threshold: 0.3,
@@ -94,7 +110,10 @@ export default function TopicPage() {
   const [hasError, setHasError] = useState(false);
 
   useLayoutEffect(() => {
-    ref.current!.style.height = `calc(100vh  - ${
+    if (upperHeight === null || lowerHeight === null) {
+      return;
+    }
+    ref.current!.style.height = `calc(100vh - 20px  - ${
       upperHeight! + lowerHeight!
     }px)`;
     const { height } = ref.current!.getBoundingClientRect();
@@ -114,7 +133,6 @@ export default function TopicPage() {
     if (fetchCount <= 0 || !trigger.isIntersecting) {
       return;
     } else {
-      console.log("fetch topics");
       fetch(
         `${process.env.NEXT_PUBLIC_API_HOST}/api/topic?from=0&count=${fetchCount}`,
         {
@@ -125,33 +143,21 @@ export default function TopicPage() {
           return resp.json();
         })
         .then((data) => {
+          if (topics.length > 30) {
+            setHasMore(false);
+            return;
+          }
           const { topics: newTopics, hasMore } = data as TopicResponse;
-          console.log(newTopics.length);
-          console.log(newTopics);
-          setHasMore(hasMore);
-          setTopics((topics) => {
-            topics.push(...newTopics);
-            return topics;
-          });
-        });
 
-      console.log(
-        "fetch ",
-        fetchCount,
-        upperHeight,
-        lowerHeight,
-        trigger?.isIntersecting
-      );
+          setHasMore(hasMore);
+          setTopics((topics) => topics.concat(newTopics));
+        });
     }
   }, [fetchCount, trigger, trigger?.isIntersecting, upperHeight, lowerHeight]);
 
   return (
     <Fragment>
-      <div
-        className="w-full before:block before:w-full before:h-[20px]"
-        id="TopicPageUpper"
-        ref={upperRef}
-      >
+      <div className="w-full" id="TopicPageUpper" ref={upperRef}>
         <AvatarSearch />
         <Carousel className="mt-[20px]">
           {SLIDES.map((index) => {
@@ -176,10 +182,9 @@ export default function TopicPage() {
         ) : (
           <>
             {topics.map((t, index) => {
-              console.log(t);
-              return <TopicCardSkeleton key={index} />;
+              return <TopicCard {...t} key={index} />;
             })}
-            {hasMore && (
+            {hasMore ? (
               <LoadingIcon
                 fill="#42C83C"
                 height="64px"
@@ -187,11 +192,12 @@ export default function TopicPage() {
                 className="mx-auto"
                 ref={triggerRef}
               />
+            ) : (
+              <NoMoreSpan scrollTo={ref} />
             )}
           </>
         )}
       </TopicContainer>
-      <div id="TopicPageLower" ref={lowerRef}></div>
     </Fragment>
   );
 }
