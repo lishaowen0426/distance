@@ -25,14 +25,14 @@ const ActionButton = React.forwardRef<
 
 const BackwardButton: React.FunctionComponent<
   React.HtmlHTMLAttributes<HTMLButtonElement>
-> = (props) => {
+> = ({ className, ...props }) => {
   return (
     <button
       type="button"
-      style={{
-        backgroundColor: "rgb(255 255 255/3%)",
-      }}
-      className="w-[36px] h-[36px]  rounded-full flex items-center justify-center"
+      className={cn(
+        "w-[36px] h-[36px]  rounded-full flex items-center justify-center bg-white/5",
+        className
+      )}
     >
       <Image src={backwardIcon} alt="backward" className="m-auto" />
     </button>
@@ -40,14 +40,14 @@ const BackwardButton: React.FunctionComponent<
 };
 const MoreButton: React.FunctionComponent<
   React.HtmlHTMLAttributes<HTMLButtonElement>
-> = (props) => {
+> = ({ className, ...props }) => {
   return (
     <button
       type="button"
-      style={{
-        backgroundColor: "rgb(255 255 255/3%)",
-      }}
-      className="w-[36px] h-[36px]  rounded-full flex items-center justify-center "
+      className={cn(
+        "w-[36px] h-[36px]  rounded-full flex items-center justify-center bg-white/5",
+        className
+      )}
     >
       <EllipsisVertical stroke="white" />
     </button>

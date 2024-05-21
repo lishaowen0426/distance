@@ -8,6 +8,7 @@
   --background-secondary: 52 52 52;
   --background-card: 30 30 30;
   --background-chosen: 35 35 35;
+  --background-home-top: 52 52 52;
   --search-background: 35 35 35;
   --action-button: 66 200 60;
   --text-primary: 242 242 242;
@@ -20,7 +21,7 @@
   --back-icon-stroke: 255 255 255;
   --back-icon-fill-primary: 255 255 255;
   --back-icon-fill-secondary: 0 0 0;
-  --topic-skeleton:  33 34 39;
+  --topic-skeleton: 33 34 39;
 }
 
 $middle-rotate-duration: 10s;
@@ -315,7 +316,7 @@ input:-webkit-autofill:active {
 .HeadCarousel {
   max-width: 100%;
   overflow: hidden;
-  --spacing: 1rem
+  --spacing: 1rem;
 }
 
 .HeadCarouselContainer {
@@ -359,7 +360,7 @@ input:-webkit-autofill:active {
 .HeadCarouselDotSelected {
 }
 
-.TopicNavi{
+.TopicNavi {
   --height: 48px;
   display: inline-block;
   max-height: var(--height);
@@ -370,11 +371,11 @@ input:-webkit-autofill:active {
   scrollbar-width: none;
   -ms-overflow-style: none;
 
-  & li{
+  & li {
     height: var(--height);
   }
 
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     width: 0;
     height: 0;
   }
@@ -388,46 +389,42 @@ input:-webkit-autofill:active {
   background-position-x: 100px;
 }
 
-.TopicText{
+.TopicText {
   color: white;
 
-  & div{
+  & div {
     overflow: auto;
     white-space: nowrap;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       width: 0;
       height: 0;
-   }
+    }
   }
 }
 
-.TopicButton{
-  & svg{
+.TopicButton {
+  & svg {
     stroke: white;
     fill: white;
-    
   }
 }
 
-.bottom-nav-button{
+.bottom-nav-button {
   & svg {
     height: 50%;
     aspect-ratio: 1/1;
-    
-    
   }
 }
-.bottom-nav-button.selected{
-  & svg{
+.bottom-nav-button.selected {
+  & svg {
     stroke: rgb(var(--icon-chosen));
   }
 }
 
 .SearchInput::placeholder {
   padding-left: 30px;
-
 }
 
 @mixin TopicBackground($city) {
@@ -438,6 +435,3 @@ input:-webkit-autofill:active {
 
 @include TopicBackground(("Katsushika"));
 @include TopicBackground(("Katsushika"));
-
-
-

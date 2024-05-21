@@ -86,55 +86,196 @@ const ChatSwitch = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<"div">>(
 const mockAvatar =
   "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80";
 
-interface MessageProps {
-  avatar?: string[];
+interface DirectMessageProps {
+  avatar?: string;
   text?: string;
   time?: string;
 }
 
-const MessageAvatar = forwardRef<
+interface GroupMessageProps {
+  avatar?: string[];
+  text?: string;
+  time?: string;
+  location: string;
+  member: string;
+}
+const DirectMessageAvatar = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div"> & { url?: string }
+>(({ url, ...props }, ref) => {
+  return (
+    <div className="h-[60%] aspect-square">
+      <img
+        src={url}
+        alt="avatar"
+        className="aspect-square object-cover rounded-2xl"
+      />
+    </div>
+  );
+});
+const GroupMessageAvatar = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div"> & { urls?: string[] }
 >(({ urls, ...props }, ref) => {
   return (
-    <div className="">
-      {urls?.slice(0, 4).map((u) => {
-        return <img src={u} alt="avatar" />;
+    <div className="h-[80%] aspect-square grid grid-rows-2 grid-cols-2 gap-[5%]">
+      {urls?.slice(0, 4).map((u, index) => {
+        return (
+          <img
+            src={u}
+            alt="avatar"
+            key={index}
+            className="aspect-square object-cover rounded-2xl"
+          />
+        );
       })}
     </div>
   );
 });
-const MessageCard = forwardRef<
+
+const MessageTime = ({ time }: { time?: string }) => {
+  return (
+    <div className="font-cnB text-text-secondary text-sm  grow basis-auto w-max whitespace-nowrap">
+      {time}
+    </div>
+  );
+};
+
+const MessageContent = ({
+  text,
+  location,
+  member,
+}: {
+  text?: string;
+  location?: string;
+  member?: string;
+}) => {
+  return (
+    <div className="font-cnB text-text-primary text-l px-[1rem]  gap-[10px] overflow-hidden whitespace-nowrap text-ellipsis flex flex-col">
+      <div className="overflow-hidden whitespace-nowrap text-ellipsis">
+        {text}
+      </div>
+      <div className="flex flex-row text-text-secondary text-xs gap-[10px]">
+        <div>{location}</div>
+        <div>{member}</div>
+      </div>
+    </div>
+  );
+};
+const DirectMessageCard = forwardRef<
   HTMLDivElement,
-  PropsWithChildren<ComponentPropsWithoutRef<"div">> & MessageProps
+  PropsWithChildren<ComponentPropsWithoutRef<"div">> & DirectMessageProps
 >(({ avatar, text, time, className, ...props }, ref) => {
   return (
-    <div ref={ref} className="w-full flex flex-row justify-between">
-      <MessageAvatar urls={avatar} />
-      <button>
+    <div
+      ref={ref}
+      className={cn(
+        "w-full flex flex-row justify-between items-center h-[80px]",
+        className
+      )}
+    >
+      <DirectMessageAvatar url={avatar} />
+      <MessageContent text={text} />
+      <MessageTime time={time} />
+      <button
+        type="button"
+        className="w-[48px] h-[48px] flex justify-center items-center"
+      >
         <EllipsisVertical stroke="white" />
       </button>
     </div>
   );
 });
 
-const msg = [
-  <MessageCard avatar={[mockAvatar]} />,
-  <MessageCard avatar={[mockAvatar, mockAvatar]} />,
-  <MessageCard avatar={[mockAvatar, mockAvatar, mockAvatar]} />,
-  <MessageCard avatar={[mockAvatar, mockAvatar, mockAvatar, mockAvatar]} />,
-  <MessageCard
-    avatar={[mockAvatar, mockAvatar, mockAvatar, mockAvatar, mockAvatar]}
+const DirectMsg = [
+  <DirectMessageCard
+    avatar={mockAvatar}
+    key="d1"
+    text="吃饭了吗？吃饭了吗吃饭了吗吃饭了吗吃饭了吗吃饭了吗"
+    time="12月31日"
+  />,
+  <DirectMessageCard
+    avatar={mockAvatar}
+    key="d2"
+    text="吃饭了吗？吃饭了吗吃饭了吗吃饭了吗吃饭了吗吃饭了吗"
+    time="17点46分"
   />,
 ];
 
+const GroupMessageCard = forwardRef<
+  HTMLDivElement,
+  PropsWithChildren<ComponentPropsWithoutRef<"div">> & GroupMessageProps
+>(({ avatar, text, time, location, member, className, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "w-full flex flex-row justify-between items-center h-[80px]",
+        className
+      )}
+    >
+      <GroupMessageAvatar urls={avatar} />
+      <MessageContent text={text} location={location} member={member} />
+      <MessageTime time={time} />
+      <button
+        type="button"
+        className="w-[48px] h-[48px] flex justify-center items-center"
+      >
+        <EllipsisVertical stroke="white" />
+      </button>
+    </div>
+  );
+});
+const GroupMsg = [
+  <GroupMessageCard
+    avatar={[mockAvatar]}
+    key="g1"
+    text="吃饭了吗？吃饭了吗吃饭了吗吃饭了吗吃饭了吗吃饭了吗"
+    time="12月31日"
+    location="新宿区"
+    member="144/653"
+  />,
+  <GroupMessageCard
+    avatar={[mockAvatar, mockAvatar]}
+    key="g2"
+    text="吃饭了吗？吃饭了吗吃饭了吗吃饭了吗吃饭了吗吃饭了吗"
+    time="12月31日"
+    location="新宿区"
+    member="144/653"
+  />,
+  <GroupMessageCard
+    avatar={[mockAvatar, mockAvatar, mockAvatar]}
+    key="g3"
+    text="吃饭了吗？吃饭了吗吃饭了吗吃饭了吗吃饭了吗吃饭了吗"
+    time="12月31日"
+    location="新宿区"
+    member="144/653"
+  />,
+  <GroupMessageCard
+    avatar={[mockAvatar, mockAvatar, mockAvatar, mockAvatar]}
+    key="g4"
+    text="吃饭了吗？吃饭了吗吃饭了吗吃饭了吗吃饭了吗吃饭了吗"
+    time="12月31日"
+    location="新宿区"
+    member="144/653"
+  />,
+  <GroupMessageCard
+    avatar={[mockAvatar, mockAvatar, mockAvatar, mockAvatar, mockAvatar]}
+    key="g5"
+    text="吃饭了吗？吃饭了吗吃饭了吗吃饭了吗吃饭了吗吃饭了吗"
+    time="12月31日"
+    location="新宿区"
+    member="144/653"
+  />,
+];
 const ChatContainer = forwardRef<
   HTMLDivElement,
   PropsWithChildren<ComponentPropsWithoutRef<"div">>
 >((props, ref) => {
+  const { selected } = useContext(ChatContext);
   return (
-    <div ref={ref} className="w-full space-y-[5px] overflow-auto">
-      {msg}
+    <div ref={ref} className="w-full pt-[1rem] space-y-[5px] overflow-auto">
+      {selected == 0 ? DirectMsg : GroupMsg}
     </div>
   );
 });
@@ -149,7 +290,7 @@ export default function ChatPage() {
     if (lowerHeight === null || upperHeight === null) {
       return;
     } else {
-      containerRef.current!.style.height = `calc(100vh - 20px  - ${
+      containerRef.current!.style.height = `calc(100vh   - ${
         upperHeight! + lowerHeight!
       }px)`;
     }
@@ -157,17 +298,19 @@ export default function ChatPage() {
 
   return (
     <ChatContext.Provider value={{ selected, setSelected }}>
-      <div className="w-full" ref={ref}>
-        <HeaderNavi>
-          <HeaderTitle>聊天</HeaderTitle>
-        </HeaderNavi>
-        <div className="w-full flex flex-col justify-start items-center">
-          <ChatSwitch />
-          <div className="w-full h-[20px]"></div>
-          <Search className="w-[85%] p-0 rounded-[20px] h-[40px]" />
+      <div className="w-full before:block before:w-full before:h-[20px] px-[1rem]">
+        <div className="w-full " ref={ref}>
+          <HeaderNavi>
+            <HeaderTitle>聊天</HeaderTitle>
+          </HeaderNavi>
+          <div className="w-full flex flex-col justify-start items-center">
+            <ChatSwitch />
+            <div className="w-full h-[20px]"></div>
+            <Search className="w-[85%] p-0 rounded-[20px] h-[40px]" />
+          </div>
         </div>
+        <ChatContainer ref={containerRef} />
       </div>
-      <ChatContainer ref={containerRef} />
     </ChatContext.Provider>
   );
 }

@@ -113,7 +113,7 @@ export default function TopicPage() {
     if (upperHeight === null || lowerHeight === null) {
       return;
     }
-    ref.current!.style.height = `calc(100vh - 20px  - ${
+    ref.current!.style.height = `calc(100vh  - ${
       upperHeight! + lowerHeight!
     }px)`;
     const { height } = ref.current!.getBoundingClientRect();
@@ -157,47 +157,53 @@ export default function TopicPage() {
 
   return (
     <Fragment>
-      <div className="w-full" id="TopicPageUpper" ref={upperRef}>
-        <AvatarSearch />
-        <Carousel className="mt-[20px]">
-          {SLIDES.map((index) => {
-            return (
-              <HeadCard key={index}>
-                <div className="h-full w-full font-cnB  text-text-primary text-3xl flex items-center justify-center">
-                  {index + 1}
-                </div>
-              </HeadCard>
-            );
-          })}
-        </Carousel>
-        <TopicNavi>
-          {NAVI.map((r, index) => {
-            return <TopicNaviItem key={index}>{r}</TopicNaviItem>;
-          })}
-        </TopicNavi>
-      </div>
-      <TopicContainer ref={ref} className="relative">
-        {hasError ? (
-          <FetchTopicFailed />
-        ) : (
-          <>
-            {topics.map((t, index) => {
-              return <TopicCard {...t} key={index} />;
+      <div className="w-full px-[1rem]">
+        <div
+          className="w-full before:block before:w-full before:h-[20px]"
+          id="TopicPageUpper"
+          ref={upperRef}
+        >
+          <AvatarSearch />
+          <Carousel className="mt-[20px]">
+            {SLIDES.map((index) => {
+              return (
+                <HeadCard key={index}>
+                  <div className="h-full w-full font-cnB  text-text-primary text-3xl flex items-center justify-center">
+                    {index + 1}
+                  </div>
+                </HeadCard>
+              );
             })}
-            {hasMore ? (
-              <LoadingIcon
-                fill="#42C83C"
-                height="64px"
-                width="64px"
-                className="mx-auto"
-                ref={triggerRef}
-              />
-            ) : (
-              <NoMoreSpan scrollTo={ref} />
-            )}
-          </>
-        )}
-      </TopicContainer>
+          </Carousel>
+          <TopicNavi>
+            {NAVI.map((r, index) => {
+              return <TopicNaviItem key={index}>{r}</TopicNaviItem>;
+            })}
+          </TopicNavi>
+        </div>
+        <TopicContainer ref={ref} className="relative">
+          {hasError ? (
+            <FetchTopicFailed />
+          ) : (
+            <>
+              {topics.map((t, index) => {
+                return <TopicCard {...t} key={index} />;
+              })}
+              {hasMore ? (
+                <LoadingIcon
+                  fill="#42C83C"
+                  height="64px"
+                  width="64px"
+                  className="mx-auto"
+                  ref={triggerRef}
+                />
+              ) : (
+                <NoMoreSpan scrollTo={ref} />
+              )}
+            </>
+          )}
+        </TopicContainer>
+      </div>
     </Fragment>
   );
 }

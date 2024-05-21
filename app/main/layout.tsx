@@ -14,7 +14,7 @@ export default function Layout({
   const [ref, { height }] = useMeasure();
   return (
     <NaviContext.Provider value={{ height, selected, setSelected }}>
-      <div className="flex flex-col items-center w-full px-[1rem] ">
+      <div className="flex flex-col items-center w-full  ">
         {children}
         <BottomNavi ref={ref} />
       </div>
