@@ -1,6 +1,7 @@
 import { LoremIpsum } from "lorem-ipsum";
 import { getRandomInt } from "@/lib/utils";
 import { type TopicContent } from "@/components/TopicCard";
+import { record } from "zod";
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
@@ -25,38 +26,38 @@ const LOCATIONS = [
   "文京区",
 ];
 
-export interface TopicResponse {
-  topics: TopicContent[];
-  hasMore: boolean;
+export interface ChatResponse {
+  topic: TopicContent;
+  record: string[];
 }
 
 let counter = 0;
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const from = searchParams.get("from")!;
-  const count = parseInt(searchParams.get("count") || "");
+  const topicID = searchParams.get("id")!;
+
+  const recordCount = getRandomInt(30, 50);
 
   return new Promise((resolveFn) => {
     setTimeout(() => {
       resolveFn(
         Response.json({
-          topics: Array(count)
-            .fill(1)
+          topic: {
+            id: lorem.generateWords(1),
+            title: lorem.generateSentences(1),
+            desciption: lorem.generateParagraphs(1),
+            location: LOCATIONS[getRandomInt(0, 10)],
+            postedAt: "一小时前",
+            online: 135,
+            member: 458,
+          },
+          record: Array(recordCount)
+            .fill("")
             .map(() => {
-              return {
-                id: lorem.generateWords(1),
-                title: lorem.generateSentences(1),
-                desciption: lorem.generateParagraphs(1),
-                location: LOCATIONS[getRandomInt(0, 10)],
-                postedAt: "一小时前",
-                online: 135,
-                city: "katsushika",
-                member: 458,
-              };
+              return lorem.generateSentences(1);
             }),
-          hasMore: true,
-        } satisfies TopicResponse)
+        } satisfies ChatResponse)
       );
     }, 500);
   });

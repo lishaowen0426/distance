@@ -1,3 +1,4 @@
+"use client";
 import {
   ComponentPropsWithoutRef,
   forwardRef,
@@ -12,6 +13,7 @@ import {
   useRef,
   useLayoutEffect,
 } from "react";
+import { useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useAnimate } from "framer-motion";
 import { Search } from "./AvatarSearch";

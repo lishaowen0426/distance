@@ -9,6 +9,7 @@ import {
 import { cva, type VariantProps } from "class-variance-authority";
 import * as Avatar from "@radix-ui/react-avatar";
 import { EllipsisVertical } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useLayoutEffect } from "react";
 
 const TOPIC_CARD_HEIGHT: number = 120;
@@ -30,6 +31,7 @@ const topicVariants = cva(
 );
 
 interface TopicContent {
+  id: string;
   title: string;
   desciption?: string;
   location?: string;
@@ -82,11 +84,28 @@ const TopicCard = forwardRef<
     TopicContent
 >(
   (
-    { city, title, desciption, location, postedAt, online, member, ...props },
+    {
+      id,
+      city,
+      title,
+      desciption,
+      location,
+      postedAt,
+      online,
+      member,
+      ...props
+    },
     ref
   ) => {
+    const router = useRouter();
     return (
-      <div ref={ref} className={topicVariants({ city })}>
+      <div
+        ref={ref}
+        className={topicVariants({ city })}
+        onClick={() => {
+          router.push(`/chat?id=${id}`);
+        }}
+      >
         <div className="TopicText max-w-[50%] flex flex-col justify-between p-[20px] pb-[5px]">
           <div className="font-cnB text-lg" suppressHydrationWarning>
             {title}

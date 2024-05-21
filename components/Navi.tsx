@@ -13,6 +13,7 @@ import {
   useContext,
 } from "react";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 import { GroupIcon, HomeIcon, SliderIcon, HeartIcon } from "@/components/Icons";
 import { BackwardButton, MoreButton } from "./ActionButton";
 
@@ -94,13 +95,21 @@ const BottomNavi = forwardRef<
 const HeaderNavi = forwardRef<
   HTMLDivElement,
   PropsWithChildren<ComponentPropsWithoutRef<"div">>
->(({ children, ...props }, ref) => {
+>(({ children, className, ...props }, ref) => {
+  const router = useRouter();
   return (
     <div
       {...props}
-      className="w-full h-[50px] flex flex-row items-center justify-between "
+      className={cn(
+        "w-full h-[50px] flex flex-row items-center justify-between",
+        className
+      )}
     >
-      <BackwardButton />
+      <BackwardButton
+        onClick={() => {
+          router.back();
+        }}
+      />
       {children}
       <MoreButton />
     </div>

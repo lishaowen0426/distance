@@ -33,6 +33,7 @@ const BackwardButton: React.FunctionComponent<
         "w-[36px] h-[36px]  rounded-full flex items-center justify-center bg-white/5",
         className
       )}
+      {...props}
     >
       <Image src={backwardIcon} alt="backward" className="m-auto" />
     </button>
