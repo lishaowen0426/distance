@@ -43,12 +43,28 @@ const BottomNaviItem: FunctionComponent<
     index: number;
   }
 > = ({ className, children, index, ...props }) => {
+  const router = useRouter();
   const markerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const { selected, setSelected } = useContext(NaviContext);
   const onButtonClick = useCallback(() => {
     setSelected(index);
+    console.log("navi index ", index);
+    switch (index) {
+      case 0:
+        router.push("/main");
+        break;
+      case 1:
+        router.push("/chat");
+        break;
+      case 2:
+        router.push("/like");
+        break;
+      case 3:
+        router.push("/home");
+        break;
+    }
   }, []);
 
   return (
@@ -96,7 +112,6 @@ const HeaderNavi = forwardRef<
   HTMLDivElement,
   PropsWithChildren<ComponentPropsWithoutRef<"div">>
 >(({ children, className, ...props }, ref) => {
-  const router = useRouter();
   return (
     <div
       {...props}
@@ -105,11 +120,7 @@ const HeaderNavi = forwardRef<
         className
       )}
     >
-      <BackwardButton
-        onClick={() => {
-          router.back();
-        }}
-      />
+      <BackwardButton />
       {children}
       <MoreButton />
     </div>

@@ -1,8 +1,10 @@
+"use client";
 import { cn } from "@/lib/utils";
 import React from "react";
 import backwardIcon from "@/public/icons/backward-arrow.svg";
 import Image from "next/image";
 import { EllipsisVertical } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const ActionButton = React.forwardRef<
   HTMLButtonElement,
@@ -26,6 +28,7 @@ const ActionButton = React.forwardRef<
 const BackwardButton: React.FunctionComponent<
   React.HtmlHTMLAttributes<HTMLButtonElement>
 > = ({ className, ...props }) => {
+  const router = useRouter();
   return (
     <button
       type="button"
@@ -33,6 +36,9 @@ const BackwardButton: React.FunctionComponent<
         "w-[36px] h-[36px]  rounded-full flex items-center justify-center bg-white/5",
         className
       )}
+      onClick={() => {
+        router.back();
+      }}
       {...props}
     >
       <Image src={backwardIcon} alt="backward" className="m-auto" />

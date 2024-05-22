@@ -1,6 +1,6 @@
 import { LoremIpsum } from "lorem-ipsum";
 import { getRandomInt } from "@/lib/utils";
-import { type TopicContent } from "@/components/TopicCard";
+import { type TopicResponse } from "@/components/ContentContainer";
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
@@ -25,11 +25,6 @@ const LOCATIONS = [
   "文京区",
 ];
 
-export interface TopicResponse {
-  topics: TopicContent[];
-  hasMore: boolean;
-}
-
 let counter = 0;
 
 export async function GET(request: Request) {
@@ -41,7 +36,7 @@ export async function GET(request: Request) {
     setTimeout(() => {
       resolveFn(
         Response.json({
-          topics: Array(count)
+          content: Array(count)
             .fill(1)
             .map(() => {
               return {

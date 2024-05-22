@@ -5,15 +5,18 @@ import {
   ComponentPropsWithoutRef,
   PropsWithChildren,
   useRef,
+  RefObject,
 } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as Avatar from "@radix-ui/react-avatar";
 import { EllipsisVertical } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useLayoutEffect } from "react";
+import { NoMoreSpan, Loading, FetchTopicFailed } from "./ContentContainer";
 
 const TOPIC_CARD_HEIGHT: number = 120;
 const TOPIC_GAP: number = 10;
+export const FETCH_COUNT = 20;
 
 const topicVariants = cva(
   `TopicCard bg-background-card w-full max-w-[500px] rounded-card h-[120px] flex justify-between`,
@@ -103,7 +106,7 @@ const TopicCard = forwardRef<
         ref={ref}
         className={topicVariants({ city })}
         onClick={() => {
-          router.push(`/chat?id=${id}`);
+          router.push(`/chatroom?id=${id}`);
         }}
       >
         <div className="TopicText max-w-[50%] flex flex-col justify-between p-[20px] pb-[5px]">
@@ -145,14 +148,28 @@ const TopicCardSkeleton = forwardRef<
 
 const TopicContainer = forwardRef<
   HTMLDivElement,
-  ComponentPropsWithoutRef<"div">
->(({ children, className, ...props }, ref) => {
+  ComponentPropsWithoutRef<"div"> & {
+    hasError: boolean;
+    hasMore: boolean;
+    loadingRef: any;
+  }
+>(({ children, className, hasError, hasMore, loadingRef, ...props }, ref) => {
   return (
     <div
       ref={ref}
-      className={cn(`w-full space-y-[${TOPIC_GAP}px] overflow-auto`, className)}
+      className={cn(
+        `w-full space-y-[${TOPIC_GAP}px] overflow-auto relative`,
+        className
+      )}
     >
+      <FetchTopicFailed display={hasError} text="话题" />
       {children}
+      <Loading ref={loadingRef} loading={hasMore} />
+      <NoMoreSpan
+        scrollTo={ref as RefObject<HTMLDivElement>}
+        display={!hasMore}
+        text="话题"
+      />
     </div>
   );
 });

@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { forwardRef, ComponentPropsWithoutRef } from "react";
 import { BackwardButton, MoreButton } from "./ActionButton";
