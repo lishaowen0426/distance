@@ -18,7 +18,8 @@ import {
 } from "react";
 import { useMeasure } from "@uidotdev/usehooks";
 import { ChatResponse } from "@/app/api/chat/route";
-import { EmojiIcon, CategoryIcon } from "./Icons";
+import { EmojiIcon, CategoryIcon, ArrowDownIcon } from "./Icons";
+import { TopicContent } from "./TopicCard";
 
 interface MessageContextProp {}
 
@@ -48,21 +49,37 @@ const Message = forwardRef<
   );
 });
 
+type MessageContainerRef = {
+  container: RefObject<HTMLDivElement>;
+  scroll: RefObject<HTMLDivElement>;
+};
+
 const MessageContainer = forwardRef<
-  HTMLDivElement,
+  MessageContainerRef,
   ComponentPropsWithoutRef<"div"> & { messages: MessageProp[] }
 >(({ messages, ...props }, ref) => {
-  const markerRef = useRef(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        container: containerRef,
+        scroll: scrollRef,
+      } satisfies MessageContainerRef;
+    },
+    []
+  );
 
   return (
-    <div
-      ref={ref}
-      className="w-full overflow-auto px-[1rem] flex flex-col gap-[5px]"
-    >
-      {messages.map((m, index) => (
-        <Message {...m} key={index} />
-      ))}
-      <div className="w-full h-[2px]" ref={markerRef}></div>
+    <div ref={containerRef} className="w-full overflow-auto px-[1rem]">
+      <div ref={scrollRef} className="flex flex-col gap-[3px]">
+        {messages.map((m, index) => (
+          <Message {...m} key={index} />
+        ))}
+        <div className="w-full h-[5px]"></div>
+      </div>
     </div>
   );
 });
@@ -71,9 +88,8 @@ const MessageInput = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div"> & {
     submit: Dispatch<SetStateAction<MessageProp[]>>;
-    container: RefObject<HTMLDivElement>;
   }
->(({ submit, container, ...props }, ref) => {
+>(({ submit, ...props }, ref) => {
   const inputRef = useRef<HTMLInputElement>(null);
   return (
     <div
@@ -83,7 +99,7 @@ const MessageInput = forwardRef<
       <input
         ref={inputRef}
         type="text"
-        className="grow h-[70%] bg-background-primary rounded-sm text-text-primary "
+        className="grow h-[70%] bg-background-primary rounded-sm text-text-primary pl-2 "
         onKeyDown={(ev) => {
           if (ev.key === "Enter") {
             if (inputRef.current?.value) {
@@ -103,19 +119,50 @@ const MessageInput = forwardRef<
     </div>
   );
 });
+
+const TopicHeader = forwardRef<
+  HTMLButtonElement,
+  ComponentPropsWithoutRef<"button"> & TopicContent
+>(
+  (
+    { title, desciption, location, postedAt, online, member, ...props },
+    ref
+  ) => {
+    return (
+      <button
+        type="button"
+        className="max-w-[70%] ml-[20px] mr-auto rounded-lg p-[5px] h-[90%] bg-background-secondary flex flex-row justify-between items-center"
+      >
+        <div className="font-cnB max-w-[90%] text-nowrap">
+          <div className="text-text-primary overflow-hidden text-ellipsis">
+            {title}
+          </div>
+          <div className="text-text-secondary overflow-hidden text-ellipsis flex flex-row text-xs font-cnL gap-[5px]">
+            <div>{location}</div>
+            <div>{postedAt}</div>
+            <div className="">{`${online}/${member}`}</div>
+          </div>
+        </div>
+        <ArrowDownIcon />
+      </button>
+    );
+  }
+);
+
 export function Chat() {
   const searchParams = useSearchParams();
   const topicId = searchParams.get("id");
   const [upperRef, { height: upperHeight }] = useMeasure(); // there is setState inside the returned ref callback
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<MessageContainerRef>(null);
 
   const [messages, setMessages] = useState<MessageProp[]>([]);
+  const [topic, setTopic] = useState<TopicContent>({} as TopicContent);
 
   useLayoutEffect(() => {
     if (upperHeight === null) {
       return;
     } else {
-      containerRef.current!.style.height = `calc(100vh   - ${upperHeight!}px - 70px)`;
+      containerRef.current!.container.current!.style.height = `calc(100vh   - ${upperHeight!}px - 70px)`;
     }
   }, [upperHeight]);
 
@@ -135,12 +182,19 @@ export function Chat() {
               };
             })
           );
+          setTopic(topic);
         });
     },
     [
       /* initial fetching */
     ]
   );
+
+  useEffect(() => {
+    let container = containerRef.current!.container.current!;
+    let scroll = containerRef.current!.scroll.current!;
+    container.scrollBy(0, scroll.offsetHeight);
+  });
 
   return (
     <MessageContext.Provider value={{}}>
@@ -150,11 +204,11 @@ export function Chat() {
           ref={upperRef}
         >
           <HeaderNavi>
-            <HeaderTitle>聊天</HeaderTitle>
+            <TopicHeader {...topic} />
           </HeaderNavi>
         </div>
         <MessageContainer ref={containerRef} messages={messages} />
-        <MessageInput submit={setMessages} container={containerRef} />
+        <MessageInput submit={setMessages} />
       </div>
     </MessageContext.Provider>
   );

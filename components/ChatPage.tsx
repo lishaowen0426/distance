@@ -13,14 +13,12 @@ import {
   useRef,
   useLayoutEffect,
 } from "react";
-import { useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useAnimate } from "framer-motion";
 import { Search } from "./AvatarSearch";
 import { HeaderNavi, HeaderTitle } from "./Navi";
 import { NaviContext } from "./Navi";
 import { useMeasure } from "@uidotdev/usehooks";
-import { Props } from "next/script";
 import { EllipsisVertical } from "lucide-react";
 
 interface ChatContextProps {

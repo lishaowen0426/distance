@@ -33,6 +33,7 @@ import {
   type TopicContent,
 } from "@/components/TopicCard";
 import { NaviContext } from "./Navi";
+import { cn } from "@/lib/utils";
 
 const PREFETCH_RATIO = 0.3;
 
@@ -54,19 +55,24 @@ const topics: TopicContent[] = Array(100).fill(1);
 
 const NoMoreSpan = forwardRef<
   HTMLDivElement,
-  ComponentPropsWithoutRef<"div"> & { scrollTo: RefObject<HTMLDivElement> }
->(({ scrollTo, ...props }, ref) => {
+  ComponentPropsWithoutRef<"div"> & {
+    scrollTo: RefObject<HTMLDivElement>;
+    display: boolean;
+  }
+>(({ scrollTo, display, ...props }, ref) => {
   return (
     <div
       ref={ref}
-      className="w-fit mx-auto font-cnB underline underline-offset-[6px] text-text-secondary/50 flex items-center mb-[10px] h-[40px]"
+      className={cn(
+        "w-fit mx-auto font-cnB underline underline-offset-[6px] text-text-secondary/50 flex items-center mb-[10px] h-[40px]",
+        display || "hidden"
+      )}
       {...props}
     >
       没有更多话题,
       <button
         className="text-text-link"
         onClick={(ev) => {
-          console.log(scrollTo.current);
           ev.stopPropagation();
           scrollTo.current?.scroll(0, 0);
         }}
@@ -79,12 +85,15 @@ const NoMoreSpan = forwardRef<
 
 const FetchTopicFailed = forwardRef<
   HTMLDivElement,
-  ComponentPropsWithoutRef<"div">
->((props, ref) => {
+  ComponentPropsWithoutRef<"div"> & { display: boolean }
+>(({ display }, ref) => {
   return (
     <div
       ref={ref}
-      className="w-full flex flex-col items-center absolute top-[30%] h-[200px] "
+      className={cn(
+        "w-full flex flex-col items-center absolute top-[30%] h-[200px]",
+        display || "hidden"
+      )}
     >
       <div className="w-fit  font-cnB text-text-primary text-2xl">
         获取话题失败
@@ -92,6 +101,21 @@ const FetchTopicFailed = forwardRef<
       <div className="w-full h-[40px]"></div>
       <ActionButton className="w-[220px] mx-auto"> 重试</ActionButton>
     </div>
+  );
+});
+
+const Loading = forwardRef<
+  SVGSVGElement,
+  ComponentPropsWithoutRef<"svg"> & { loading: boolean }
+>(({ loading }, ref) => {
+  return (
+    <LoadingIcon
+      fill="#42C83C"
+      height="64px"
+      width="64px"
+      className={cn("mx-auto", loading || "hidden")}
+      ref={ref}
+    />
   );
 });
 
@@ -182,28 +206,18 @@ export default function TopicPage() {
           </TopicNavi>
         </div>
         <TopicContainer ref={ref} className="relative">
-          {hasError ? (
-            <FetchTopicFailed />
-          ) : (
-            <>
-              {topics.map((t, index) => {
-                return <TopicCard {...t} key={index} />;
-              })}
-              {hasMore ? (
-                <LoadingIcon
-                  fill="#42C83C"
-                  height="64px"
-                  width="64px"
-                  className="mx-auto"
-                  ref={triggerRef}
-                />
-              ) : (
-                <NoMoreSpan scrollTo={ref} />
-              )}
-            </>
-          )}
+          <FetchTopicFailed display={hasError} />
+          <>
+            {topics.map((t, index) => {
+              return <TopicCard {...t} key={index} />;
+            })}
+            <Loading ref={triggerRef} loading={hasMore} />
+            <NoMoreSpan scrollTo={ref} display={!hasMore} />
+          </>
         </TopicContainer>
       </div>
     </Fragment>
   );
 }
+
+export { NoMoreSpan, FetchTopicFailed, Loading };
