@@ -50,7 +50,6 @@ const BottomNaviItem: FunctionComponent<
   const { selected, setSelected } = useContext(NaviContext);
   const onButtonClick = useCallback(() => {
     setSelected(index);
-    console.log("navi index ", index);
     switch (index) {
       case 0:
         router.push("/main");

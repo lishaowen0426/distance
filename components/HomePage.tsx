@@ -29,7 +29,7 @@ const SettingItem = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<"div">>(
   ({ children, ...props }, ref) => {
     return (
       <div
-        className="flex flex-row items-center gap-[10px] font-cnB text-text-primary align-middle"
+        className="flex flex-row items-center gap-[10px] font-cnB text-2xl text-text-primary align-middle SettingItem"
         {...props}
       >
         {children}

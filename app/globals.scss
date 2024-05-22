@@ -459,6 +459,11 @@ input:-webkit-autofill:active {
 
 }
 
+.SettingItem svg{
+  height: 36px;
+  width: 36px;
+}
+
 
 @mixin TopicBackground($city) {
   .Topic#{$city} {
