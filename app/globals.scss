@@ -177,8 +177,7 @@ input:-webkit-autofill:active {
 
   /* Revert background color */
   transition: background-color 5000s ease-in-out 0s;
-  outline:none;
-  
+  outline: none;
 }
 
 .SelectContent {
@@ -268,7 +267,6 @@ input:-webkit-autofill:active {
 .AuthFormContainer {
   width: var(--auth-form-width);
   height: 500px;
-  margin: 0 auto;
 }
 
 #AuthFormTitle {
@@ -431,39 +429,35 @@ input:-webkit-autofill:active {
   padding-left: 30px;
 }
 
-.HomeSetting svg{
+.HomeSetting svg {
   width: 24px;
   height: 24px;
 }
 
-.InputEmoji svg{
+.InputEmoji svg {
   width: 36px;
   height: 36px;
-  
 }
 
-.MessageBubble{
-  background-color: rgb(var(--background-other-message)/0.8);
+.MessageBubble {
+  background-color: rgb(var(--background-other-message) / 0.8);
   padding: 8px;
   border-radius: 10px;
   width: fit-content;
   max-width: 70%;
   margin-right: auto;
-
 }
 
-.MessageBubble.Own{
+.MessageBubble.Own {
   background-color: rgb(var(--background-own-message));
   margin-left: auto;
   margin-right: 0px;
-
 }
 
-.SettingItem svg{
+.SettingItem svg {
   height: 36px;
   width: 36px;
 }
-
 
 @mixin TopicBackground($city) {
   .Topic#{$city} {

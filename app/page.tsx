@@ -3,19 +3,26 @@ import { HomePageCircle } from "@/components/HomePageCircle";
 import ActionButton from "@/components/ActionButton";
 import AuthFormContainer from "@/components/AuthForm";
 import { useRouter } from "next/navigation";
+import LinearGradient from "@/components/magicui/linear-gradient";
+import { SeparateAway } from "@/components/magicui/separate-away";
 export default function Home() {
   const router = useRouter();
   return (
     <div
       id="HomepageContainer"
-      className="w-full overflow-x-hidden  mt-[50px] flex flex-col desktop:flex-row desktop:mt-[160px] desktop:gap-[250px] desktop:w-fit desktop:justify-center"
+      className="w-full h-full overflow-x-hidden  flex flex-col desktop:flex-row  desktop:gap-[250px] justify-center items-center"
     >
       <AuthFormContainer className="hidden desktop:block desktop:mt-[60px]" />
       <div className="flex flex-col">
         <HomePageCircle className="self-center" />
-        <p className="mt-[110px] font-cnB text-lg text-text-primary w-[150px] relative left-[75px]">
-          发现你感兴趣的，在任何地方
-        </p>
+        <div className="h-[50px]"></div>
+
+        <SeparateAway
+          upper_text="发现你感兴趣的"
+          lower_text="在任何地方"
+          duration={3}
+          className="font-cnB  text-text-primary text-2xl relative left-[75px]"
+        />
         <ActionButton
           className="w-[250px] self-center mt-[32px] desktop:hidden"
           onClick={() => router.push("/auth")}
@@ -23,6 +30,7 @@ export default function Home() {
           进入
         </ActionButton>
       </div>
+      <LinearGradient />
     </div>
   );
 }
