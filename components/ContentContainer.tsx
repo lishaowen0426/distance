@@ -113,7 +113,7 @@ export default function useContentContainer<ContentType>({
     if (upperHeight === null || lowerHeight === null) {
       return;
     } else {
-      containerRef.current!.style.height = `calc(100vh  - ${
+      containerRef.current!.style.height = `calc(100dvh  - ${
         upperHeight + lowerHeight
       }px)`;
     }

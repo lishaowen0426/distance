@@ -464,6 +464,10 @@ input:-webkit-autofill:active {
   width: 36px;
 }
 
+.MessageInput:focus-visible{
+
+}
+
 
 @mixin TopicBackground($city) {
   .Topic#{$city} {

@@ -99,7 +99,7 @@ const MessageInput = forwardRef<
       <input
         ref={inputRef}
         type="text"
-        className="grow h-[70%] bg-background-primary rounded-sm text-text-primary pl-2 "
+        className="grow h-[70%] bg-background-primary rounded-sm text-text-primary pl-2 MessageInput"
         onKeyDown={(ev) => {
           if (ev.key === "Enter") {
             if (inputRef.current?.value) {
@@ -162,7 +162,7 @@ export function Chat() {
     if (upperHeight === null) {
       return;
     } else {
-      containerRef.current!.container.current!.style.height = `calc(100vh   - ${upperHeight!}px - 70px)`;
+      containerRef.current!.container.current!.style.height = `calc(100dvh   - ${upperHeight!}px - 70px)`;
     }
   }, [upperHeight]);
 
