@@ -3,6 +3,38 @@
 @tailwind utilities;
 
 :root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 47.4% 11.2%;
+
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 47.4% 11.2%;
+
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 47.4% 11.2%;
+
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+
+  --destructive: 0 100% 50%;
+  --destructive-foreground: 210 40% 98%;
+
+  --ring: 215 20.2% 65.1%;
+
+  --radius: 0.5rem;
+  --polygon-width:500px;
+  --polygon-height:500px;
   --auth-form-width: 344px;
   --background-primary: 19 19 21;
   --background-secondary: 52 52 52;
@@ -24,6 +56,15 @@
   --topic-skeleton: 33 34 39;
   --background-other-message: 66 200 60;
   --background-own-message: 30 30 30;
+}
+
+body{
+  min-height: 100dvh;
+}
+
+button {
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 $middle-rotate-duration: 10s;
@@ -123,6 +164,199 @@ $outer-circle-radius: 250px;
     z-index: 1;
   }
 }
+
+@keyframes polygon-scale {
+  from{
+    scale: 1;
+  }
+  to {
+    scale: 1.5;
+
+  }
+  
+}
+
+#home-page-container{
+  width: 100%;
+  height: 100dvh;
+
+}
+#homepage-background{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  
+
+
+  & > .homepage-polygon{
+    width: var(--polygon-width);
+    height: var(--polygon-height);
+    animation: polygon-scale 2s ease-in-out 0s infinite  alternate;
+    &:nth-child(1){
+      position: absolute;
+      left: -50%;
+
+    }
+    &:nth-child(2){
+      position: absolute;
+      top:50%;
+      right: -50%;
+
+    }
+  }
+
+}
+
+
+
+#home-primary-title{
+  position: absolute;
+  width: fit-content;
+  top: calc(0.3 * var(--polygon-width));
+  right:2rem;
+}
+
+#home-secondary-title{
+  position: absolute;
+  left: 2rem;
+  top: calc(var(--polygon-height))
+
+
+}
+
+#homepage-button-group{
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  top: 75%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  gap:20px;
+
+  & > button{
+    font-weight: bold;
+    font-size: 1rem;
+    padding-left: 16px;
+    padding-right: 16px;
+    line-height: 36px;
+    border: 1px solid rgb(0 0 0/.2);
+    border-radius: 10px;
+    min-width: 64px;
+    flex-grow: 1;
+    
+
+  }
+
+  & > button:nth-child(1){
+
+  }
+  & > button:nth-child(2){
+    background-color: rgb(0 0 0/.8);
+    color: white;
+
+
+  }
+
+ 
+}
+
+
+
+@media (min-width: 1000px) {
+
+  #homepage-background{
+    & > .homepage-polygon{
+      
+      &:nth-child(1){
+        position: absolute;
+        left: 0;
+  
+      }
+      &:nth-child(2){
+        position: absolute;
+        top:50%;
+        right: 0;
+  
+      }
+    }
+  
+  }
+
+  #home-page-container{
+    position: absolute;
+    transform-box: content-box;
+    width: 1000px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+  }
+
+  #homepage-button-group{
+    width: 300px;
+  }
+  
+}
+
+
+
+.dialog-content{
+  border: none;
+  background-color: white;
+  border: 1px solid rgb(0 0 0);
+  border-radius: 10px;
+}
+
+.auth-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap:20px;
+  font-size: 1rem;
+  font-weight: 600;
+
+  & button {
+    margin-top: 30px;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    line-height: 2;
+    width: 128px;
+    margin-left: auto;
+    margin-right: auto;
+    
+  }
+
+
+
+  & input[type="text"],
+    & input[type="password"] {
+        border: 1px solid rgb(0 0 0/0.2);
+        border-radius: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 100%;
+        line-height: 50px;
+    }
+    & input[type="text"]:focus,
+    & input[type="password"]:focus {
+        outline: none !important;
+        border-color: black;
+    }
+    & input[type="text"][data-status="error"],
+    & input[type="password"][data-status="error"] {
+        border-color: red;
+    }
+    & input[type="text"]::placeholder,
+    & input[type="password"]::placeholder {
+        font-size: 1rem;
+        font-weight: 400;
+    }
+}
+
 
 #HomepageContainer {
   position: absolute;
@@ -439,7 +673,7 @@ input:-webkit-autofill:active {
   height: 36px;
 }
 
-.MessageBubble {
+.essageBubble {
   background-color: rgb(var(--background-other-message) / 0.8);
   padding: 8px;
   border-radius: 10px;
@@ -458,6 +692,8 @@ input:-webkit-autofill:active {
   height: 36px;
   width: 36px;
 }
+
+
 
 
 @mixin TopicBackground($city) {

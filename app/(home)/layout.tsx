@@ -1,27 +1,28 @@
 import type { Metadata } from "next";
-import "./globals.scss";
+import "../globals.scss";
 import localFont from "next/font/local";
 import { cn } from "@/lib/utils";
 import Script from "next/script";
+import HomePageBackground from "@/components/HomePageBackground";
 
 const cnB = localFont({
-  src: "../public/fonts/OPPOSans-B.ttf",
+  src: "../../public/fonts/OPPOSans-B.ttf",
   variable: "--font-cn-B",
 });
 const cnH = localFont({
-  src: "../public/fonts/OPPOSans-H.ttf",
+  src: "../../public/fonts/OPPOSans-H.ttf",
   variable: "--font-cn-H",
 });
 const cnL = localFont({
-  src: "../public/fonts/OPPOSans-L.ttf",
+  src: "../../public/fonts/OPPOSans-L.ttf",
   variable: "--font-cn-L",
 });
 const cnM = localFont({
-  src: "../public/fonts/OPPOSans-M.ttf",
+  src: "../../public/fonts/OPPOSans-M.ttf",
   variable: "--font-cn-M",
 });
 const cnR = localFont({
-  src: "../public/fonts/OPPOSans-R.ttf",
+  src: "../../public/fonts/OPPOSans-R.ttf",
   variable: "--font-cn-R",
 });
 
@@ -39,13 +40,18 @@ export default function RootLayout({
       lang="zh-Hans"
       className={cn(
         `${cnB.variable} ${cnH.variable} ${cnL.variable} ${cnM.variable} ${cnR.variable}`,
-        "bg-background-primary h-full w-full"
+        "w-full"
       )}
       suppressHydrationWarning
     >
       <head></head>
 
-      <body className="h-full min-h-screen w-full ">{children}</body>
+      <body className="w-full relative ">
+        <div id="home-page-container">
+          <HomePageBackground />
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

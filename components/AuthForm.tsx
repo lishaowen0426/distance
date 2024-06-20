@@ -8,7 +8,7 @@ import {
   UseFormStateReturn,
 } from "react-hook-form";
 import { RecordType, z } from "zod";
-import React from "react";
+import React, { ComponentPropsWithoutRef, forwardRef } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import ActionButton from "./ActionButton";
@@ -402,3 +402,27 @@ const AuthFormContainer: React.FunctionComponent<
   );
 };
 export default AuthFormContainer;
+
+type FormInput = { email: string; password: string };
+
+export const LoginForm = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div">
+>((props, ref) => {
+  const { register, handleSubmit } = useForm<FormInput>();
+  return (
+    <form className="auth-form">
+      <input
+        type="text"
+        {...register("email")}
+        placeholder="メールアドレス"
+      ></input>
+
+      <input
+        type="password"
+        {...register("password")}
+        placeholder="パスワード"
+      ></input>
+    </form>
+  );
+});

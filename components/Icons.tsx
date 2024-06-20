@@ -422,6 +422,124 @@ const ArrowDownIcon = forwardRef<
     </svg>
   );
 });
+
+const Polygon1Icon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
+  ({ width, height, id, className, ...props }, ref) => {
+    return (
+      <svg
+        id={id}
+        ref={ref}
+        width={width || "1290"}
+        height={height || "1242"}
+        viewBox="0 0 1290 1242"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className={className}
+      >
+        <g filter="url(#filter0_f_105_53)">
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M646.36 305.085C696.961 314.355 733.111 354.619 776.434 381.199C815.096 404.92 861.41 419.129 889.171 454.058C916.757 488.765 915.954 535.628 931.667 576.51C949.567 623.08 995.305 663.814 988.703 713.008C982.177 761.643 933.967 794.749 897.712 829.546C863.946 861.954 826.971 890.664 783.521 909.937C740.374 929.076 693.824 944.391 646.36 941.041C599.905 937.762 559.441 912.669 518.648 891.241C479.434 870.643 440.243 849.704 410.988 817.403C381.203 784.517 365.579 743.603 348.466 703.341C329.064 657.691 288.208 611.059 303.261 563.942C318.593 515.952 391.579 509.103 423.309 469.073C456.191 427.59 446.547 360.44 489.743 328.683C532.119 297.527 593.797 295.457 646.36 305.085Z"
+            fill="url(#paint0_linear_105_53)"
+          />
+        </g>
+        <defs>
+          <filter
+            id="filter0_f_105_53"
+            x="0"
+            y="0"
+            width="1289.35"
+            height="1241.5"
+            filterUnits="userSpaceOnUse"
+            colorInterpolationFilters="sRGB"
+          >
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
+            <feBlend
+              mode="normal"
+              in="SourceGraphic"
+              in2="BackgroundImageFix"
+              result="shape"
+            />
+            <feGaussianBlur
+              stdDeviation="150"
+              result="effect1_foregroundBlur_105_53"
+            />
+          </filter>
+          <linearGradient
+            id="paint0_linear_105_53"
+            x1="644.675"
+            y1="300"
+            x2="644.675"
+            y2="941.503"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#3FE8FF" />
+            <stop offset="1" stopColor="#52FF00" />
+          </linearGradient>
+        </defs>
+      </svg>
+    );
+  }
+);
+const Polygon2Icon = forwardRef<SVGSVGElement, ComponentPropsWithoutRef<"svg">>(
+  ({ width, height, id, className, ...props }, ref) => {
+    return (
+      <svg
+        width={width || "905"}
+        height={height || "888"}
+        id={id}
+        className={className}
+        viewBox="0 0 905 888"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g filter="url(#filter0_f_110_54)">
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M593.071 484.519C583.223 505.286 560.956 516.183 544.083 531.78C529.026 545.699 517.42 564.035 498.505 571.934C479.71 579.783 458.582 573.949 438.318 575.948C415.234 578.225 391.683 593.208 370.148 584.597C348.857 576.083 339.252 551.387 327.547 531.656C316.645 513.28 307.776 493.95 303.903 472.93C300.056 452.056 298.321 430.16 305.139 410.055C311.812 390.377 327.692 375.841 341.949 360.733C355.655 346.211 369.512 331.738 387.404 322.886C405.62 313.874 425.889 311.917 446.029 309.242C468.864 306.208 494.54 294.025 514.191 306.042C534.207 318.282 529.156 350.603 543.736 368.993C558.846 388.051 590.325 391.749 599.879 414.121C609.252 436.069 603.301 462.947 593.071 484.519Z"
+            fill="url(#paint0_linear_110_54)"
+          />
+        </g>
+        <defs>
+          <filter
+            id="filter0_f_110_54"
+            x="0.519409"
+            y="0.847168"
+            width="904.043"
+            height="886.394"
+            filterUnits="userSpaceOnUse"
+            colorInterpolationFilters="sRGB"
+          >
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
+            <feBlend
+              mode="normal"
+              in="SourceGraphic"
+              in2="BackgroundImageFix"
+              result="shape"
+            />
+            <feGaussianBlur
+              stdDeviation="150"
+              result="effect1_foregroundBlur_110_54"
+            />
+          </filter>
+          <linearGradient
+            id="paint0_linear_110_54"
+            x1="595.562"
+            y1="484.387"
+            x2="305.118"
+            y2="409.273"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#FF613F" />
+            <stop offset="1" stopColor="#EB00FF" />
+          </linearGradient>
+        </defs>
+      </svg>
+    );
+  }
+);
 export {
   GroupIcon,
   HeartIcon,
@@ -435,4 +553,6 @@ export {
   EmojiIcon,
   CategoryIcon,
   ArrowDownIcon,
+  Polygon1Icon,
+  Polygon2Icon,
 };
